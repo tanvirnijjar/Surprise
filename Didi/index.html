@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Surprise for Didi 💜</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: 'Trebuchet MS', sans-serif;
+    background: linear-gradient(135deg, #eee3ff, #d9c5ff, #f7efff);
+}
+
+.card {
+    width: 90%;
+    max-width: 420px;
+    min-height: 430px;
+    background: rgba(255,255,255,0.88);
+    border-radius: 30px;
+    padding: 40px 25px;
+    text-align: center;
+    box-shadow: 0 15px 45px rgba(115, 75, 160, 0.18);
+    position: relative;
+    z-index: 2;
+}
+
+.emoji {
+    font-size: 65px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #8d62c5;
+    font-size: 29px;
+    margin-bottom: 15px;
+}
+
+p {
+    color: #82649f;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 35px;
+    min-height: 55px;
+}
+
+button {
+    border: none;
+    padding: 14px 30px;
+    border-radius: 30px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#yes {
+    background: #a77be0;
+    color: white;
+    box-shadow: 0 5px 15px #d6c1f5;
+}
+
+#yes:hover {
+    transform: scale(1.1);
+}
+
+#no {
+    background: #eeeeee;
+    color: #777;
+    position: relative;
+}
+
+.hidden {
+    display: none;
+}
+
+#message {
+    animation: appear 0.8s ease;
+}
+
+#message h1 {
+    margin-top: 15px;
+}
+
+#message p {
+    margin-top: 15px;
+}
+
+.butterfly {
+    position: fixed;
+    bottom: -35px;
+    font-size: 25px;
+    animation: float 7s linear forwards;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes float {
+    to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <div id="question">
+        <div class="emoji">🦋💜</div>
+
+        <h1>Hey Didi!</h1>
+
+        <p>
+            Excuse me, madam!
+            I have a very important question...
+            <br><br>
+            Do you love me? 🥺
+        </p>
+
+        <div class="buttons">
+            <button id="yes" onclick="sayYes()">YES 💜</button>
+            <button id="no">NO 🙄</button>
+        </div>
+    </div>
+
+    <div id="message" class="hidden">
+        <div class="emoji">🥹💜</div>
+
+        <h1>Of course you do!</h1>
+
+        <p>
+            You are not just my sister,
+            you are my forever partner in crime! 😂
+            <br><br>
+            Thank you for all the laughs,
+            fights, memories and unconditional love.
+            <br><br>
+            No matter how much we fight,
+            you will always be my favourite Didi!
+            <br><br>
+            Love you loads! 💜🫂
+        </p>
+
+        <div class="emoji">🌷🦋💜</div>
+    </div>
+
+</div>
+
+<script>
+
+const noButton = document.getElementById("no");
+
+function moveButton() {
+    const maxX = window.innerWidth - noButton.offsetWidth - 20;
+    const maxY = window.innerHeight - noButton.offsetHeight - 20;
+
+    noButton.style.position = "fixed";
+    noButton.style.left = Math.max(10, Math.random() * maxX) + "px";
+    noButton.style.top = Math.max(10, Math.random() * maxY) + "px";
+}
+
+noButton.addEventListener("mouseover", moveButton);
+
+noButton.addEventListener("touchstart", function(e) {
+    e.preventDefault();
+    moveButton();
+});
+
+noButton.addEventListener("click", moveButton);
+
+function sayYes() {
+    document.getElementById("question").classList.add("hidden");
+    document.getElementById("message").classList.remove("hidden");
+    createButterflies();
+}
+
+function createButterflies() {
+    const symbols = ["🦋", "💜", "🌷", "✨", "💗"];
+
+    for (let i = 0; i < 35; i++) {
+        const butterfly = document.createElement("div");
+
+        butterfly.className = "butterfly";
+        butterfly.innerHTML = symbols[
+            Math.floor(Math.random() * symbols.length)
+        ];
+
+        butterfly.style.left = Math.random() * 100 + "vw";
+        butterfly.style.animationDuration =
+            (3 + Math.random() * 5) + "s";
+
+        document.body.appendChild(butterfly);
+
+        setTimeout(() => butterfly.remove(), 9000);
+    }
+}
+
+// Floating butterflies in background
+setInterval(() => {
+    const butterfly = document.createElement("div");
+
+    butterfly.className = "butterfly";
+    butterfly.innerHTML = "🦋";
+    butterfly.style.left = Math.random() * 100 + "vw";
+    butterfly.style.animationDuration = "7s";
+
+    document.body.appendChild(butterfly);
+
+    setTimeout(() => butterfly.remove(), 7000);
+}, 900);
+
+</script>
+
+</body>
+</html>
+
